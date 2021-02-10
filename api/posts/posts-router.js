@@ -61,7 +61,9 @@ router.put('/:id', (req, res) => {
     Posts.update(id, postChange)
       .then(post => {
           if (post) {
-              res.status(200).json(postChange);
+              Posts.findById(id).then(newPost => {
+              res.status(200).json(newPost);
+            })
          } else if (postChange.title === '' || postChange.contents === '' ) {
               res.status(400).json({
                   message: 'Please provide title and contents for the post.'
